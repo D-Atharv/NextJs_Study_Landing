@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 // import { useMediaQuery } from "react-responsive";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
@@ -25,6 +25,7 @@ const Landing: FC = () => {
     const [page2Open, setPage2Open] = useState(false);
     const [page3Open, setPage3Open] = useState(false);
     const [zIndexPriority, setZIndexPriority] = useState<string | null>(null);
+    const [isMounted, setIsMounted] = useState(false);
     // const isMediumScreen = useMediaQuery({ minWidth: 426, maxWidth: 1023 });
 
     const bookmarkControls = useAnimation();
@@ -35,6 +36,28 @@ const Landing: FC = () => {
     const sloganControls = useAnimation();
     const studyHookControls = useAnimation();
     const typewriterControls = useAnimation();
+
+    const pageTurnAudioRef = useRef<HTMLAudioElement | null>(null);
+
+    const playPageTurnSound = () => {
+        if (pageTurnAudioRef.current) {
+            pageTurnAudioRef.current.currentTime = 0; 
+            pageTurnAudioRef.current.play().catch((error) => {
+                console.error("Audio playback error:", error);
+            });
+        }
+    };
+
+    useEffect(() => {
+        if (isMounted) {  
+            playPageTurnSound();
+        }
+    }, [coverOpen, page1Open, page2Open, page3Open]);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
 
     useEffect(() => {
         if (coverOpen) {
@@ -132,6 +155,8 @@ const Landing: FC = () => {
 
     return (
         <>
+            <audio ref={pageTurnAudioRef} src="/landing/audio/pageTurn.mp3" preload="auto" />
+
             <div className={
                 `${styles.container}`
             }>
@@ -535,9 +560,9 @@ const Landing: FC = () => {
                                     <motion.div
                                         className="absolute inset-0 flex justify-between items-center px-4 sm:px-10 md:px-14 h-full z-20"
                                         style={{ top: "-10%", transform: "translateY(10%)" }}
-                                        initial={{ opacity: 0, y: -20 }} 
-                                        animate={page3Open ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }} 
-                                        transition={{ duration: 0.5, ease: "easeOut" }} 
+                                        initial={{ opacity: 0, y: -20 }}
+                                        animate={page3Open ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
+                                        transition={{ duration: 0.5, ease: "easeOut" }}
                                     >
                                         <h1 className="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold text-black">
                                             About Us
