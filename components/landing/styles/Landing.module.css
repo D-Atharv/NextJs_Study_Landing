@@ -1,0 +1,127 @@
+.container {
+    font-family: "Poppins", sans-serif;
+    background-image: url("../../../public/landing/bg_black.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .book {
+    position: relative;
+    perspective: 1500px;
+    transition: transform 1s;
+  }
+  
+  .slideRight {
+    transform: translateX(48%);
+  }
+  .slideLeft {
+    transform: translateX(-48%);
+  }
+  
+  .cover,
+  .backCover {
+    background-image: url("../../../public/landing/paper_2_bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 15px 15px 0;
+    box-shadow: 0 0 10px rgb(41, 41, 41);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center left;
+    cursor: pointer;
+    transition: transform 1s;
+  }
+  
+  .cover {
+    position: absolute;
+    z-index: 10;
+  }
+  
+  .backCover {
+    position: absolute;
+    z-index: 0;
+  }
+  
+  .backCoverFlipped {
+    transform: rotateY(-180deg);
+    z-index: 20;
+  }
+  
+  .page {
+    position: absolute;
+    background-image: url("../../../public/landing/paper_1_bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 92%;
+    height: 90%;
+    border-radius: 0 15px 15px 0;
+    margin-top: 4%;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  }
+  
+  .flipped {
+    transform: rotateY(-180deg);
+  }
+  
+  .frontPage,
+  .backPage {
+    position: absolute;
+    width: 70%;
+    height: 40%;
+    left: 140px;
+    top: -90px;
+    backface-visibility: hidden;
+    box-sizing: border-box;
+    padding: 5rem;
+  }
+  
+  .backPage {
+    transform: rotateY(180deg);
+    z-index: 15;
+  }
+  
+  .page img {
+    width: 100%;
+    height: 290px;
+    border-radius: 15px 0 0 15px;
+  }
+  .backside {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../public/landing/paper_2_bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: rotateY(180deg);
+  }
+  
+  @media screen and (max-width: 1700px) and (min-width: 1200px) {
+    .start_xl {
+      padding-left: 25%;
+      padding-right: 25%;
+    }
+  
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .slideRight {
+      transform: translateX(5%);
+    }
+  
+    .flipped {
+      transform: rotateY(-95deg);
+    }
+  }
+  
+  
+  
